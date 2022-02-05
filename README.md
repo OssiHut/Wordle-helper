@@ -8,7 +8,7 @@ Instructions:
     Write a maximum of five letter word or part of word.
     Unknown characters can be written as "*" and program
     finds all the solutions which have character's in
-    the desired place. There are also three commands.
+    the desired place. There are also seven commands.
 
         Examples of use: 
             1. User inputs "abo", and finds all the 
