@@ -44,22 +44,24 @@ class WordleGUI():
         # title and size configuration
         self.window.title("Wordle helper")
         self.window.resizable(width=False,height=False)
-        self.window.configure(width=600,height=350)
+        self.window.configure(width=800,height=400)
 
         # text in the top of created frame
-        lbl_toptext = Label(self.window, text="Hei")
+        lbl_toptext = Label(self.window)
         lbl_toptext.place(relwidth=1)
 
         # messagebox for output
         self.textwidget = Text(self.window,width=20,height=2)
-        self.textwidget.place(relheight=0.8,relwidth=1,rely=0.05)
-        self.textwidget.config(state=DISABLED)
+        self.textwidget.place(relheight=0.8,relwidth=0.85,rely=0.05,relx=0.15)
+        self.textwidget.config(cursor="arrow",state=DISABLED)
+       
         
 
         # scrollbar for output messagebox
         scrollbar = Scrollbar(self.textwidget)
-        scrollbar.place(relheight=1, relx=0.95)
+        scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.configure(command=self.textwidget.yview)
+        self.textwidget.config(yscrollcommand=scrollbar.set)
 
         lbl_bottom = Label(self.window,bg="grey",height=80)
         lbl_bottom.place(relwidth=1,rely=0.85)
@@ -152,6 +154,18 @@ class WordleGUI():
                     "Solutions are listed below:\n")
                 for solution in allsolutions:
                     self.textwidget.insert(END,f"{solution}\n")
+
+            # command: add
+            elif message == "add":
+                charstoadd = self.textwidget.insert(END,"Write characters to add back (use ',' to separate): \n")
+                if len(wordleguess.ignorecharacters) == 0:
+                    self.textwidget.insert(END,"You must remove characters first.")
+                else:
+                    addcharslist = list(filter(None,charstoadd.split(",")))
+                    for item in addcharslist:
+                        wordleguess.ignorecharacters.remove(item)
+                    self.textwidget.insert(END,"Following characters were added back:\n")
+                    self.textwidget.insert(END,*sorted(addcharslist), sep = ", ")
 
             ################
             # COMMANDS END #
