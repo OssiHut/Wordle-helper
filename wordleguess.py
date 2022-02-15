@@ -344,7 +344,8 @@ def main():
         Main function of program which includes commands function
     '''
 
-    commands()
+    # for CLI only:
+    # commands()
     
 if __name__ == "__main__":
     main()
